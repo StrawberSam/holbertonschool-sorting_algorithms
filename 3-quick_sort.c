@@ -17,25 +17,29 @@ int partition(int *array, int start, int end, size_t size)
 	int j;
 
 	i = start - 1;
-	pivot = array[end];
+	pivot = array[end]; /* Le pivot est toujours le dernier élément */
 
+	/* Parcours du sous-tableau */
 	for (j = start; j < end; j++)
 	{
+		/* Si l'élément courant est plus petit ou égal au pivot */
 		if (array[j] <= pivot)
 		{
-			i++;
+			i++; /* On déplace la frontière des petits éléments */
 
+			/* On échange array[i] et array[j] si nécessaire */
 			if (i != j)
 			{
 				tmp = array[i];
 				array[i] = array[j];
 				array[j] = tmp;
-				print_array(array, size);
+				print_array(array, size); /* Affichage après chaque swap */
 			}
 
 		}
 	}
 
+	/* On place le pivot à sa position finale */
 	if (i + 1 != end)
 	{
 		tmp = array[i + 1];
@@ -44,7 +48,7 @@ int partition(int *array, int start, int end, size_t size)
 		print_array(array, size);
 	}
 
-	return (i + 1);
+	return (i + 1); /* Retourne la position du pivot */
 }
 
 /**
@@ -62,8 +66,13 @@ void quick_sort_recursive(int *array, int start, int end, size_t size)
 
 	if (start < end)
 	{
+		/* Partitionne le tableau et récupère l'index du pivot */
 		pivot_index = partition(array, start, end, size);
+
+		/* Trie récursivement la partie gauche */
 		quick_sort_recursive(array, start, pivot_index - 1, size);
+
+		/* Trie récursivement la partie droite */
 		quick_sort_recursive(array, pivot_index + 1, end, size);
 	}
 }
